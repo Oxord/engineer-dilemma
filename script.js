@@ -25,21 +25,16 @@ function renderMenu() {
     state.path = [];
 
     const availableGrid = document.getElementById('available-grid');
-    const soonGrid = document.getElementById('soon-grid');
     availableGrid.innerHTML = '';
-    soonGrid.innerHTML = '';
 
-    DILEMMAS.forEach((d) => {
+    DILEMMAS.filter((d) => !d.comingSoon).forEach((d) => {
         const card = document.createElement('button');
-        card.className = 'dilemma-card' + (d.comingSoon ? ' coming-soon' : '');
+        card.className = 'dilemma-card';
         card.type = 'button';
         card.setAttribute('role', 'listitem');
-        card.disabled = !!d.comingSoon;
 
         const tags = (d.tags || []).map((t) => `<span class="tag">${t}</span>`).join('');
-        const meta = d.comingSoon
-            ? `<span class="duration">скоро</span>`
-            : `<span class="duration">≈ ${d.estimatedMinutes} мин</span>`;
+        const meta = `<span class="duration">≈ ${d.estimatedMinutes} мин</span>`;
 
         card.innerHTML = `
             <span class="card-kicker">${d.kicker}</span>
@@ -48,12 +43,8 @@ function renderMenu() {
             <div class="card-meta">${tags}${meta}</div>
         `;
 
-        if (!d.comingSoon) {
-            card.addEventListener('click', () => startDilemma(d.id));
-            availableGrid.appendChild(card);
-        } else {
-            soonGrid.appendChild(card);
-        }
+        card.addEventListener('click', () => startDilemma(d.id));
+        availableGrid.appendChild(card);
     });
 
     show('menu');

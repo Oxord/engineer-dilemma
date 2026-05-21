@@ -1,177 +1,169 @@
-const story = {
-    start: {
-        text: "Вы — старший разработчик в финтех-стартапе TechCorp. Сегодня ночью, за 12 часов до главного релиза года, вы случайно обнаруживаете, что приложение пишет пароли пользователей в открытом виде в production-логи.\n\nКоманда работала на износ полгода. Релиз критически важен для раунда инвестиций. Ваш годовой бонус привязан к запуску.\n\nЧто вы делаете?",
-        choices: [
-            { text: "Немедленно написать CTO и поднять тревогу", next: "report" },
-            { text: "Попытаться тихо исправить до релиза", next: "silent_fix" }
-        ]
-    },
-
-    report: {
-        text: "Вы пишете CTO в 2 часа ночи. Она отвечает через 10 минут и созывает экстренный звонок.\n\nПосле короткого обсуждения она доверяет ваше суждение: «Ты ближе всех к коду. Что мы должны сделать?»\n\nВаш совет?",
-        choices: [
-            { text: "Отложить релиз на неделю и сделать всё правильно", next: "delay" },
-            { text: "Запустить с хотфиксом и раскрыть проблему публично", next: "launch_disclose" }
-        ]
-    },
-
-    silent_fix: {
-        text: "Вы открываете IDE и начинаете писать патч. В 3 часа ночи в офисе появляется ваша коллега Сара — она забыла зарядку.\n\n«Ого, ты ещё здесь? Что чинишь?» — спрашивает она, заглядывая через плечо.",
-        choices: [
-            { text: "Рассказать Саре правду о баге", next: "tell_sarah" },
-            { text: "Соврать: «Просто оптимизирую логирование»", next: "lie_sarah" }
-        ]
-    },
-
-    delay: {
-        text: "CTO соглашается. Релиз откладывают на две недели. Инвестор раздражён и снижает оценку компании на 30%.\n\nЧерез месяц после успешного запуска CEO собирает команду и в кулуарах называет вас «параноиком, который стоил нам денег».\n\nК вам подходит хедхантер из конкурирующей компании.",
-        choices: [
-            { text: "Остаться и доказать свою правоту работой", next: "stay_loyal" },
-            { text: "Принять оффер — здесь не ценят профессионализм", next: "leave" }
-        ]
-    },
-
-    launch_disclose: {
-        text: "Вы катите хотфикс за 4 часа до релиза. CTO публикует security advisory в день запуска: «Мы нашли и устранили потенциальную проблему до того, как она затронула пользователей».\n\nЧерез неделю TechCrunch публикует статью: «TechCorp задаёт новый стандарт прозрачности в индустрии».\n\nОднако внутри компании ходят слухи, что VP of Engineering хочет вас уволить за «панику».",
-        choices: [
-            { text: "Запросить встречу с VP и прояснить ситуацию", next: "confront_vp" },
-            { text: "Игнорировать слухи — результат говорит сам за себя", next: "ignore_rumors" }
-        ]
-    },
-
-    tell_sarah: {
-        text: "Сара слушает и бледнеет. «Это нужно эскалировать прямо сейчас», — говорит она.\n\nНо вы напоминаете: если поднять тревогу сейчас, релиз сорвётся, и пятьдесят человек останутся без бонусов.\n\nСара колеблется.",
-        choices: [
-            { text: "Согласиться с Сарой и вместе разбудить CTO", next: "report" },
-            { text: "Убедить её молчать и помочь починить тихо", next: "sarah_silent" }
-        ]
-    },
-
-    lie_sarah: {
-        text: "Сара кивает и уходит. Вы дописываете патч и сливаете его в master в 5 утра.\n\nРелиз проходит идеально. Через три недели в публичный security-форум кто-то сливает скриншот ваших старых логов с паролями.\n\nЖурналист пишет вам в LinkedIn с вопросами.",
-        choices: [
-            { text: "Признаться: «Да, мы знали, исправили молча»", next: "ending_honest_late" },
-            { text: "Отрицать: «Впервые слышу об этом»", next: "ending_cover_up" }
-        ]
-    },
-
-    stay_loyal: {
-        text: "Через полгода компанию ломают — но через другой вектор. Ваша команда реагирует за два часа, потому что у вас отлажены процессы безопасности, которые вы внедрили после того инцидента.\n\nCEO публично извиняется перед вами на all-hands."
-    },
-
-    leave: {
-        text: "Вы уходите в крупную компанию с лучшей зарплатой. Через год TechCorp ломают, теряют 40% клиентов и закрываются.\n\nВы получаете десятки сообщений от бывших коллег: «Ты предупреждал»."
-    },
-
-    confront_vp: {
-        text: "VP оказывается рад встрече. Он признаётся, что слухи распускал не он, а PR-директор, испугавшийся за репутацию.\n\nВас повышают до Principal Engineer и ставят руководить security-программой."
-    },
-
-    ignore_rumors: {
-        text: "Через два месяца вас тихо переводят в неприоритетный проект. Никто открыто не обвиняет вас, но карьерный рост остановлен.\n\nВы уходите в другую компанию через год — без громких историй, но и без шрамов."
-    },
-
-    sarah_silent: {
-        text: "Вы фиксите вдвоём. Релиз проходит успешно. Через месяц Сара начинает избегать вас в офисе. Ещё через месяц она увольняется и пишет в письме HR анонимный отчёт об инциденте.\n\nНачинается внутреннее расследование."
-    },
-
-    ending_honest_late: {
-        text: "Журналист публикует материал с вашим интервью. Компания получает крупный штраф от регулятора, акции падают на 18%.\n\nВас увольняют, но в индустрии отмечают вашу личную честность. Через полгода вас приглашают руководить security-программой в другой компании."
-    },
-
-    ending_cover_up: {
-        text: "Журналист уходит с пустыми руками — на время. Через четыре месяца независимый исследователь публикует полный технический отчёт со ссылками на git-историю.\n\nВас увольняют с формулировкой «за нарушение профессиональной этики». Регулятор начинает расследование. Несколько компаний отзывают офферы."
-    }
+const state = {
+    dilemma: null,
+    nodeId: null,
+    path: []
 };
 
-const endings = {
-    stay_loyal: {
-        title: "Терпеливый профессионал",
-        verdict: "Вы выбрали системную работу над репутацией. Этика подтвердилась результатом — но цена была год сомнений и недооценённости."
-    },
-    leave: {
-        title: "Принципиальный уход",
-        verdict: "Иногда правильное решение — уйти. Вы сохранили профессиональную целостность, но не смогли изменить организацию изнутри."
-    },
-    confront_vp: {
-        title: "Прозрачность как стратегия",
-        verdict: "Открытый разговор разрешил конфликт. Ваша принципиальность стала карьерным преимуществом, потому что вы не побоялись её защитить."
-    },
-    ignore_rumors: {
-        title: "Тихое отступление",
-        verdict: "Вы поступили этично в кризисе, но не отстояли себя после. Профессиональная этика — это и про защиту собственной репутации тоже."
-    },
-    ending_honest_late: {
-        title: "Запоздалая честность",
-        verdict: "Признание спасло вашу личную репутацию, но не репутацию компании. Молчание после обнаружения проблемы — это уже часть проблемы."
-    },
-    ending_cover_up: {
-        title: "Сокрытие",
-        verdict: "Через полгода правда вскрылась. Вы потеряли работу, право работать в индустрии и доверие людей. Этический долг растёт со сложным процентом."
-    },
-    sarah_silent: {
-        title: "Сообщник поневоле",
-        verdict: "Втягивая коллегу в сокрытие, вы переложили на неё моральный груз. Этический выбор — личный, но его последствия распространяются на других."
-    }
+const screens = {
+    menu: document.getElementById('menu'),
+    story: document.getElementById('story'),
+    ending: document.getElementById('ending')
 };
 
-let path = [];
+function show(screenId) {
+    Object.entries(screens).forEach(([id, el]) => {
+        const active = id === screenId;
+        el.classList.toggle('hidden', !active);
+        el.setAttribute('aria-hidden', String(!active));
+    });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
 
-function render(nodeId) {
-    const node = story[nodeId];
-    const sceneText = document.getElementById('scene-text');
-    const choices = document.getElementById('choices');
-    const ending = document.getElementById('ending');
-    const stepCounter = document.getElementById('step-counter');
-    const pathEl = document.getElementById('path');
+function renderMenu() {
+    state.dilemma = null;
+    state.nodeId = null;
+    state.path = [];
 
-    sceneText.textContent = node.text;
-    choices.innerHTML = '';
-    ending.classList.add('hidden');
+    const grid = document.getElementById('dilemma-grid');
+    grid.innerHTML = '';
 
-    stepCounter.textContent = `Шаг ${path.length + 1}`;
-    pathEl.innerHTML = path.map(() => '<span class="path-dot"></span>').join('');
+    DILEMMAS.forEach((d) => {
+        const card = document.createElement('button');
+        card.className = 'dilemma-card' + (d.comingSoon ? ' coming-soon' : '');
+        card.type = 'button';
+        card.setAttribute('role', 'listitem');
+        card.disabled = !!d.comingSoon;
+
+        const tags = (d.tags || []).map((t) => `<span class="tag">${t}</span>`).join('');
+        const meta = d.comingSoon
+            ? `<span class="duration">скоро</span>`
+            : `<span class="duration">≈ ${d.estimatedMinutes} мин</span>`;
+
+        card.innerHTML = `
+            <span class="card-kicker">${d.kicker}</span>
+            <h3>${d.title}</h3>
+            <p class="card-desc">${d.description}</p>
+            <div class="card-meta">${tags}${meta}</div>
+        `;
+
+        if (!d.comingSoon) {
+            card.addEventListener('click', () => startDilemma(d.id));
+        }
+        grid.appendChild(card);
+    });
+
+    show('menu');
+}
+
+function startDilemma(id) {
+    const dilemma = DILEMMAS.find((d) => d.id === id);
+    if (!dilemma || dilemma.comingSoon) return;
+
+    state.dilemma = dilemma;
+    state.nodeId = dilemma.start;
+    state.path = [];
+
+    document.getElementById('story-kicker').textContent = dilemma.kicker;
+    document.getElementById('story-title').textContent = dilemma.title;
+
+    renderScene(dilemma.start);
+    show('story');
+}
+
+function renderScene(nodeId) {
+    const node = state.dilemma.story[nodeId];
+    state.nodeId = nodeId;
+
+    const sceneEl = document.getElementById('scene-text');
+    sceneEl.textContent = node.text;
+    sceneEl.style.animation = 'none';
+    void sceneEl.offsetWidth;
+    sceneEl.style.animation = '';
+
+    const choicesEl = document.getElementById('choices');
+    choicesEl.innerHTML = '';
 
     if (node.choices) {
-        node.choices.forEach((choice) => {
+        node.choices.forEach((choice, idx) => {
             const btn = document.createElement('button');
             btn.className = 'choice-btn';
-            btn.textContent = choice.text;
-            btn.addEventListener('click', () => {
-                path.push(nodeId);
-                if (endings[choice.next]) {
-                    showEnding(choice.next);
-                } else {
-                    render(choice.next);
-                }
-            });
-            choices.appendChild(btn);
+            btn.type = 'button';
+            btn.innerHTML = `
+                <span class="choice-key">${idx + 1}</span>
+                <span class="choice-text">${choice.text}</span>
+            `;
+            btn.addEventListener('click', () => makeChoice(choice));
+            choicesEl.appendChild(btn);
         });
     } else {
         showEnding(nodeId);
+        return;
+    }
+
+    updateProgress();
+}
+
+function makeChoice(choice) {
+    state.path.push({
+        nodeId: state.nodeId,
+        choiceText: choice.text
+    });
+
+    const nextNode = state.dilemma.story[choice.next];
+    if (!nextNode || !nextNode.choices) {
+        showEnding(choice.next);
+    } else {
+        renderScene(choice.next);
+    }
+}
+
+function updateProgress() {
+    const dotsEl = document.getElementById('progress-dots');
+    dotsEl.innerHTML = '';
+    const total = Math.max(state.dilemma.approxSteps || 3, state.path.length + 1);
+    for (let i = 0; i < total; i++) {
+        const dot = document.createElement('span');
+        dot.className = 'dot';
+        if (i < state.path.length) dot.classList.add('done');
+        else if (i === state.path.length) dot.classList.add('current');
+        dotsEl.appendChild(dot);
     }
 }
 
 function showEnding(endingId) {
-    const node = story[endingId];
-    const endingData = endings[endingId];
-    const ending = document.getElementById('ending');
-    const choices = document.getElementById('choices');
-    const sceneText = document.getElementById('scene-text');
+    const node = state.dilemma.story[endingId];
+    const endingData = state.dilemma.endings[endingId];
 
-    if (node && node.text) {
-        sceneText.textContent = node.text;
-    }
-    choices.innerHTML = '';
-    ending.classList.remove('hidden');
     document.getElementById('ending-title').textContent = endingData.title;
-    document.getElementById('ending-text').textContent = '';
+    document.getElementById('ending-text').textContent = node && node.text ? node.text : '';
     document.getElementById('ending-verdict').textContent = endingData.verdict;
+
+    const pathList = document.getElementById('path-list');
+    pathList.innerHTML = '';
+    state.path.forEach((step) => {
+        const li = document.createElement('li');
+        li.textContent = step.choiceText;
+        pathList.appendChild(li);
+    });
+
+    show('ending');
 }
 
+document.getElementById('back-to-menu').addEventListener('click', renderMenu);
+document.getElementById('to-menu').addEventListener('click', renderMenu);
 document.getElementById('restart').addEventListener('click', () => {
-    path = [];
-    render('start');
+    if (state.dilemma) startDilemma(state.dilemma.id);
 });
 
-render('start');
+document.addEventListener('keydown', (e) => {
+    if (screens.story.classList.contains('hidden')) return;
+    const idx = parseInt(e.key, 10) - 1;
+    if (idx === 0 || idx === 1) {
+        const buttons = document.querySelectorAll('#choices .choice-btn');
+        if (buttons[idx]) buttons[idx].click();
+    } else if (e.key === 'Escape') {
+        renderMenu();
+    }
+});
+
+renderMenu();

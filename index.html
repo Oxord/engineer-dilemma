@@ -3,36 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Профессионально-этическая дилемма</title>
+    <title>Дилеммы — интерактивные истории</title>
+    <meta name="description" content="Сборник интерактивных историй о профессионально-этических дилеммах. Каждое решение меняет путь.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>Дилемма инженера</h1>
-            <p class="subtitle">Интерактивная история о профессиональной этике</p>
-        </header>
+    <div class="app">
+        <section id="menu" class="screen menu-screen">
+            <header class="menu-header">
+                <span class="kicker">Сборник</span>
+                <h1>Дилеммы</h1>
+                <p class="lede">Короткие интерактивные истории о профессиональной этике. На каждом шаге — выбор между двумя путями. Каждое решение ведёт к своему финалу.</p>
+            </header>
+            <div id="dilemma-grid" class="dilemma-grid" role="list"></div>
+        </section>
 
-        <main id="story">
-            <div class="scene">
-                <div id="scene-text" class="scene-text"></div>
-                <div id="choices" class="choices"></div>
-            </div>
+        <section id="story" class="screen story-screen hidden" aria-hidden="true">
+            <header class="story-header">
+                <button id="back-to-menu" class="icon-btn" aria-label="К списку дилемм" title="К списку дилемм">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M19 12H5"></path>
+                        <polyline points="12 19 5 12 12 5"></polyline>
+                    </svg>
+                </button>
+                <div class="story-meta">
+                    <span class="story-kicker" id="story-kicker"></span>
+                    <h2 id="story-title"></h2>
+                </div>
+                <div class="progress-dots" id="progress-dots" aria-label="Прогресс"></div>
+            </header>
+            <article class="scene">
+                <p id="scene-text" class="scene-text"></p>
+                <div id="choices" class="choices" role="group" aria-label="Варианты выбора"></div>
+            </article>
+            <p class="hint">Подсказка: клавиши <kbd>1</kbd> и <kbd>2</kbd> для быстрого выбора</p>
+        </section>
 
-            <div id="ending" class="ending hidden">
+        <section id="ending" class="screen ending-screen hidden" aria-hidden="true">
+            <header class="ending-header">
+                <span class="ending-badge">Финал</span>
                 <h2 id="ending-title"></h2>
-                <p id="ending-text"></p>
-                <p id="ending-verdict" class="verdict"></p>
-                <button id="restart" class="restart-btn">Начать заново</button>
+            </header>
+            <p id="ending-text" class="scene-text"></p>
+            <blockquote class="verdict" id="ending-verdict"></blockquote>
+            <details class="path-summary">
+                <summary>Ваш путь</summary>
+                <ol id="path-list"></ol>
+            </details>
+            <div class="ending-actions">
+                <button id="restart" class="btn-primary">Пройти снова</button>
+                <button id="to-menu" class="btn-secondary">К другим дилеммам</button>
             </div>
-        </main>
-
-        <div id="progress" class="progress">
-            <span id="step-counter">Шаг 1</span>
-            <div id="path" class="path"></div>
-        </div>
+        </section>
     </div>
-
+    <script src="dilemmas.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

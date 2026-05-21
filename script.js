@@ -24,8 +24,10 @@ function renderMenu() {
     state.nodeId = null;
     state.path = [];
 
-    const grid = document.getElementById('dilemma-grid');
-    grid.innerHTML = '';
+    const availableGrid = document.getElementById('available-grid');
+    const soonGrid = document.getElementById('soon-grid');
+    availableGrid.innerHTML = '';
+    soonGrid.innerHTML = '';
 
     DILEMMAS.forEach((d) => {
         const card = document.createElement('button');
@@ -48,8 +50,10 @@ function renderMenu() {
 
         if (!d.comingSoon) {
             card.addEventListener('click', () => startDilemma(d.id));
+            availableGrid.appendChild(card);
+        } else {
+            soonGrid.appendChild(card);
         }
-        grid.appendChild(card);
     });
 
     show('menu');

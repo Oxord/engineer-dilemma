@@ -99,6 +99,33 @@ h1, h2, h3 {
     gap: 20px;
 }
 
+.section-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 0 0 20px;
+}
+
+.section-header--soon {
+    margin-top: 48px;
+}
+
+.section-title {
+    font-family: var(--sans);
+    font-size: 0.78rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-soft);
+    font-weight: 600;
+    flex-shrink: 0;
+}
+
+.section-rule {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, var(--border), transparent);
+}
+
 .dilemma-card {
     background: var(--surface);
     border: 1px solid var(--border);

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Профессионально-этическая дилемма</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Дилемма инженера</h1>
+            <p class="subtitle">Интерактивная история о профессиональной этике</p>
+        </header>
+
+        <main id="story">
+            <div class="scene">
+                <div id="scene-text" class="scene-text"></div>
+                <div id="choices" class="choices"></div>
+            </div>
+
+            <div id="ending" class="ending hidden">
+                <h2 id="ending-title"></h2>
+                <p id="ending-text"></p>
+                <p id="ending-verdict" class="verdict"></p>
+                <button id="restart" class="restart-btn">Начать заново</button>
+            </div>
+        </main>
+
+        <div id="progress" class="progress">
+            <span id="step-counter">Шаг 1</span>
+            <div id="path" class="path"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

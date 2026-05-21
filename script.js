@@ -34,7 +34,7 @@ function renderMenu() {
         card.setAttribute('role', 'listitem');
 
         const tags = (d.tags || []).map((t) => `<span class="tag">${t}</span>`).join('');
-        const meta = `<span class="duration">≈ ${d.estimatedMinutes} мин</span>`;
+        const meta = `<span class="duration">≈ ${d.estimatedMinutes} min</span>`;
 
         card.innerHTML = `
             <span class="card-kicker">${d.kicker}</span>

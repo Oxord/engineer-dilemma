@@ -1,49 +1,67 @@
-# Дилемма инженера
+# Dilemmas
 
-Интерактивная история о профессионально-этической дилемме. Главный герой — инженер фин­тех-стартапа, который за ночь до релиза находит критическую уязвимость. На каждом шаге — выбор между двумя путями. Семь возможных концовок.
+An anthology of short interactive stories about professional ethics. Each story is a branching dilemma: at every step you choose between two paths, and decisions converge toward a small set of distinct endings.
 
-## Структура
+## Structure
 
-- `index.html` — разметка
-- `styles.css` — стили
-- `script.js` — данные сюжета и логика навигации
-- `.github/workflows/deploy.yml` — деплой на GitHub Pages
+- `index.html` — markup
+- `styles.css` — styles
+- `dilemmas.js` — story data (one object per dilemma)
+- `script.js` — generic router and rendering logic
+- `.github/workflows/deploy.yml` — GitHub Pages deployment
 
-## Локальный запуск
+## Running locally
 
-Откройте `index.html` в браузере — сборка не нужна.
+Open `index.html` in a browser — no build step.
 
-Или поднимите простой сервер:
+Or serve it:
 
 ```bash
 python3 -m http.server 8000
 ```
 
-И откройте http://localhost:8000
+Then open http://localhost:8000
 
-## Деплой
+## Deployment
 
-1. Создайте репозиторий на GitHub и запушьте код в ветку `main`.
-2. В настройках репозитория: **Settings → Pages → Build and deployment → Source: GitHub Actions**.
-3. Workflow `deploy.yml` запустится автоматически на каждый push в `main`.
-4. После успешного запуска сайт будет доступен по адресу `https://<username>.github.io/<repo>/`.
+1. Push the repo to GitHub (`main` branch).
+2. Repo settings: **Settings → Pages → Build and deployment → Source: GitHub Actions**.
+3. `deploy.yml` runs on every push to `main`.
+4. Site goes live at `https://<username>.github.io/<repo>/`.
 
-## Дерево сюжета
+## Adding a new dilemma
 
+Append an object to the `DILEMMAS` array in `dilemmas.js`:
+
+```js
+{
+    id: 'my-dilemma',
+    kicker: 'Domain · Subtopic',
+    title: "The Someone's Dilemma",
+    description: 'Short hook for the menu card.',
+    tags: ['tag1', 'tag2'],
+    estimatedMinutes: 5,
+    approxSteps: 4,
+    start: 'start',
+    story: {
+        start: {
+            text: "Opening scene...",
+            choices: [
+                { text: "Choice A", next: "nodeA" },
+                { text: "Choice B", next: "nodeB" }
+            ]
+        },
+        // ...intermediate nodes with choices
+        // ...terminal nodes (no choices) referenced by id in `endings`
+    },
+    endings: {
+        ending_id: { title: "Ending Title", verdict: "One-line moral." }
+    }
+}
 ```
-start
-├── report                          [сообщить CTO]
-│   ├── delay                       [отложить релиз]
-│   │   ├── stay_loyal              ★ Терпеливый профессионал
-│   │   └── leave                   ★ Принципиальный уход
-│   └── launch_disclose             [запустить + раскрыть]
-│       ├── confront_vp             ★ Прозрачность как стратегия
-│       └── ignore_rumors           ★ Тихое отступление
-└── silent_fix                      [тихо исправить]
-    ├── tell_sarah                  [сказать коллеге]
-    │   ├── → report (петля)
-    │   └── sarah_silent            ★ Сообщник поневоле
-    └── lie_sarah                   [соврать]
-        ├── ending_honest_late      ★ Запоздалая честность
-        └── ending_cover_up         ★ Сокрытие
-```
+
+Mark in-progress entries with `comingSoon: true` to keep them as placeholders without rendering in the menu.
+
+## Story tree shape
+
+A dilemma is a DAG: paths can merge (a choice can lead back into a shared sub-story). This lets you get more choice points per playthrough without exploding the ending count. Typical shape: 4–7 choices per playthrough, 3 endings.

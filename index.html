@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Дилеммы — интерактивные истории</title>
-    <meta name="description" content="Сборник интерактивных историй о профессионально-этических дилеммах. Каждое решение меняет путь.">
+    <title>Dilemmas — Interactive Stories</title>
+    <meta name="description" content="A collection of interactive stories about professional-ethical dilemmas. Every decision changes the path.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -14,16 +14,16 @@
     <div class="app">
         <section id="menu" class="screen menu-screen">
             <header class="menu-header">
-                <span class="kicker">Сборник</span>
-                <h1>Дилеммы</h1>
-                <p class="lede">Короткие интерактивные истории о профессиональной этике. На каждом шаге — выбор между двумя путями. Каждое решение ведёт к своему финалу.</p>
+                <span class="kicker">Anthology</span>
+                <h1>Dilemmas</h1>
+                <p class="lede">Short interactive stories about professional ethics. Each step is a choice between two paths. Each decision leads to its own ending.</p>
             </header>
             <div id="available-grid" class="dilemma-grid" role="list"></div>
         </section>
 
         <section id="story" class="screen story-screen hidden" aria-hidden="true">
             <header class="story-header">
-                <button id="back-to-menu" class="icon-btn" aria-label="К списку дилемм" title="К списку дилемм">
+                <button id="back-to-menu" class="icon-btn" aria-label="Back to dilemmas" title="Back to dilemmas">
                     <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                         <path d="M19 12H5"></path>
                         <polyline points="12 19 5 12 12 5"></polyline>
@@ -33,29 +33,29 @@
                     <span class="story-kicker" id="story-kicker"></span>
                     <h2 id="story-title"></h2>
                 </div>
-                <div class="progress-dots" id="progress-dots" aria-label="Прогресс"></div>
+                <div class="progress-dots" id="progress-dots" aria-label="Progress"></div>
             </header>
             <article class="scene">
                 <p id="scene-text" class="scene-text"></p>
-                <div id="choices" class="choices" role="group" aria-label="Варианты выбора"></div>
+                <div id="choices" class="choices" role="group" aria-label="Choices"></div>
             </article>
-            <p class="hint">Подсказка: клавиши <kbd>1</kbd> и <kbd>2</kbd> для быстрого выбора</p>
+            <p class="hint">Tip: press <kbd>1</kbd> or <kbd>2</kbd> to choose quickly</p>
         </section>
 
         <section id="ending" class="screen ending-screen hidden" aria-hidden="true">
             <header class="ending-header">
-                <span class="ending-badge">Финал</span>
+                <span class="ending-badge">Ending</span>
                 <h2 id="ending-title"></h2>
             </header>
             <p id="ending-text" class="scene-text"></p>
             <blockquote class="verdict" id="ending-verdict"></blockquote>
             <details class="path-summary">
-                <summary>Ваш путь</summary>
+                <summary>Your path</summary>
                 <ol id="path-list"></ol>
             </details>
             <div class="ending-actions">
-                <button id="restart" class="btn-primary">Пройти снова</button>
-                <button id="to-menu" class="btn-secondary">К другим дилеммам</button>
+                <button id="restart" class="btn-primary">Try again</button>
+                <button id="to-menu" class="btn-secondary">Other dilemmas</button>
             </div>
         </section>
     </div>

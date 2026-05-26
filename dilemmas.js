@@ -12,92 +12,92 @@ const DILEMMAS = [
             start: {
                 text: "You're a senior developer at fintech startup TechCorp. Tonight, twelve hours before the year's biggest release, you accidentally discover that the app is writing user passwords in plain text to the production server logs.\n\nThe team has been working at full burn for six months. The release is critical for the funding round. Your annual bonus is tied to launch.",
                 choices: [
-                    { text: "Message the CTO immediately", next: "r1" },
-                    { text: "Double-check first — maybe I'm misreading this", next: "b1" }
+                    { text: "Message the CTO immediately", next: "r1", codex: "ACM 1.2 · Avoid harm" },
+                    { text: "Double-check first — maybe I'm misreading this", next: "b1", codex: "ACM 2.5 · Thorough evaluation" }
                 ]
             },
             b1: {
                 text: "An hour of analysis at 3 AM: it all checks out. The logs have been writing passwords in plain text since the start of beta. Thousands of records.\n\nYou're tired and angry. The third coffee is going cold on your desk.",
                 choices: [
-                    { text: "Wake the CTO anyway — this is serious", next: "r1" },
-                    { text: "Try to patch it quietly before morning", next: "b2_silent" }
+                    { text: "Wake the CTO anyway — this is serious", next: "r1", codex: "ACM 1.2 · Avoid harm" },
+                    { text: "Try to patch it quietly before morning", next: "b2_silent", codex: "violates ACM 2.6 · Act only within authorized scope" }
                 ]
             },
             r1: {
                 text: "The CTO responds in ten minutes and calls an emergency meeting. After a brief discussion she trusts your judgment: \"You're closest to the code. What should we do?\"\n\nThe clock on the wall reads 4:17.",
                 choices: [
-                    { text: "Delay the launch by a week and do it right", next: "r2_delay" },
-                    { text: "Push an urgent patch and disclose publicly", next: "r2_hotfix" }
+                    { text: "Delay the launch by a week and do it right", next: "r2_delay", codex: "ACM 2.9 · Design robust and secure systems" },
+                    { text: "Push an urgent patch and disclose publicly", next: "r2_hotfix", codex: "ACM 1.3 · Be honest and trustworthy" }
                 ]
             },
             r2_delay: {
                 text: "The CTO agrees. The release is pushed back two weeks. One investor finds out and cuts the company's valuation by 30%.\n\nThe CEO calls you \"the paranoid one who cost us money\" in hallway conversations. Part of the team goes cold when you walk into the open space. A recruiter from a competitor reaches out.",
                 choices: [
-                    { text: "Stay and prove yourself through the work", next: "r3_stay" },
-                    { text: "Take the competitor's offer", next: "r3_leave" }
+                    { text: "Stay and prove yourself through the work", next: "r3_stay", codex: "ACM 3.7 · Care for the systems you build" },
+                    { text: "Take the competitor's offer", next: "r3_leave", codex: "ACM 2.1 · Sustain conditions for high-quality work" }
                 ]
             },
             r2_hotfix: {
                 text: "You ship the urgent patch four hours before launch. The CTO publishes a security advisory on the company site the day of release. TechCrunch writes: \"TechCorp sets a new standard for transparency.\"\n\nA week later the VP of Engineering tells the all-hands how \"he personally led the rapid response.\" Not a word about you.",
                 choices: [
-                    { text: "Talk to the VP directly and demand acknowledgment", next: "r3_confront" },
-                    { text: "Stay quiet — results matter more than credit", next: "r3_silent" }
+                    { text: "Talk to the VP directly and demand acknowledgment", next: "r3_confront", codex: "ACM 1.5 · Honor credit for intellectual work" },
+                    { text: "Stay quiet — results matter more than credit", next: "r3_silent", codex: "violates ACM 1.5 · Honor credit for intellectual work" }
                 ]
             },
             b2_silent: {
                 text: "You open your editor and start writing the patch. At 3:30 your colleague Sarah walks in — she forgot her charger.\n\n\"Oh, still here? What are you fixing?\" she asks, peering over your shoulder.",
                 choices: [
-                    { text: "Tell her everything", next: "b3_truth" },
-                    { text: "Lie: \"Just optimizing logging\"", next: "b3_lie" }
+                    { text: "Tell her everything", next: "b3_truth", codex: "ACM 1.3 · Be honest and trustworthy" },
+                    { text: "Lie: \"Just optimizing logging\"", next: "b3_lie", codex: "violates ACM 1.3 · Be honest and trustworthy" }
                 ]
             },
             b3_truth: {
                 text: "Sarah turns pale. \"This needs to be escalated right now,\" she says.\n\nYou remind her: waking the CTO at 3:30 will torpedo the release, and fifty people will miss their bonuses.",
                 choices: [
-                    { text: "Agree, and wake the CTO together", next: "r1" },
-                    { text: "Convince her to stay silent and fix it together", next: "b4_silent" }
+                    { text: "Agree, and wake the CTO together", next: "r1", codex: "ACM 2.4 · Accept and provide appropriate review" },
+                    { text: "Convince her to stay silent and fix it together", next: "b4_silent", codex: "violates ACM 1.2 · Avoid harm + 1.3 · Honesty" }
                 ]
             },
             b3_lie: {
                 text: "Sarah nods and leaves. You finish the patch and merge it into main at 5 AM. The release goes flawlessly. Your full bonus comes through.\n\nThree weeks later, a screenshot of the old logs with passwords surfaces on a public security forum. A journalist messages you on LinkedIn.",
                 choices: [
-                    { text: "Admit it: \"Yes, we knew, we fixed it quietly\"", next: "ending_compromised" },
-                    { text: "Deny it: \"First I'm hearing of this\"", next: "ending_coverup" }
+                    { text: "Admit it: \"Yes, we knew, we fixed it quietly\"", next: "ending_compromised", codex: "ACM 1.3 · Honesty after the fact" },
+                    { text: "Deny it: \"First I'm hearing of this\"", next: "ending_coverup", codex: "violates ACM 1.2 + 1.3 · Compounding the deception" }
                 ]
             },
             b4_silent: {
                 text: "You fix it together. The release succeeds. Sarah noticeably avoids you in the office for weeks after.\n\nA year later the company gets breached — through a different vector, but the post-mortem surfaces your old branch with the quiet patch in the commit history. HR starts having \"conversations.\"",
                 choices: [
-                    { text: "Come forward and take responsibility", next: "ending_compromised" },
-                    { text: "Stay silent — let them prove it", next: "ending_coverup" }
+                    { text: "Come forward and take responsibility", next: "ending_compromised", codex: "ACM 2.4 · Accept responsibility for review" },
+                    { text: "Stay silent — let them prove it", next: "ending_coverup", codex: "violates ACM 1.2 + 1.3" }
                 ]
             },
             r3_stay: {
                 text: "Six months later a junior engineer named Anton comes to you. He just found leaked API keys in a partner integration's code.\n\n\"I've got a date tonight — can it wait till Monday? Doesn't seem that bad.\"",
                 choices: [
-                    { text: "Tell him about that night and insist on escalating now", next: "ending_professional" },
-                    { text: "Give safe advice: \"File a ticket, we'll handle it Monday\"", next: "ending_compromised" }
+                    { text: "Tell him about that night and insist on escalating now", next: "ending_professional", codex: "ACM 3.1 · Public good as central concern" },
+                    { text: "Give safe advice: \"File a ticket, we'll handle it Monday\"", next: "ending_compromised", codex: "violates ACM 1.2 · Delay as harm" }
                 ]
             },
             r3_leave: {
                 text: "First week at the new company, you spot a similar risk in the payments architecture: keys are being logged in debug mode. Nobody has noticed yet.\n\nThey don't know you here. Zero credit of trust.",
                 choices: [
-                    { text: "Raise it at standup, citing policy", next: "ending_professional" },
-                    { text: "Wait a couple of months until you've earned trust", next: "ending_compromised" }
+                    { text: "Raise it at standup, citing policy", next: "ending_professional", codex: "ACM 1.2 · Avoid harm + 2.3 · Know and respect rules" },
+                    { text: "Wait a couple of months until you've earned trust", next: "ending_compromised", codex: "violates ACM 1.2 · Delay as harm" }
                 ]
             },
             r3_confront: {
                 text: "The VP denies it at first, then his expression shifts: \"You're right. I screwed up. I'll set the record straight at the next all-hands.\"\n\nA month later you're promoted to Principal Engineer and asked to lead the security program.",
                 choices: [
-                    { text: "Use the role to rewrite the culture's processes", next: "ending_professional" },
-                    { text: "Focus on the promotion, don't rock the boat", next: "ending_compromised" }
+                    { text: "Use the role to rewrite the culture's processes", next: "ending_professional", codex: "ACM 3.7 · Care for systems + 3.1 · Public good" },
+                    { text: "Focus on the promotion, don't rock the boat", next: "ending_compromised", codex: "violates ACM 2.1 · Sustain conditions for quality" }
                 ]
             },
             r3_silent: {
                 text: "Six months pass. At your annual review you're passed over for promotion — \"still need to show more strategic impact.\" The VP signed the review himself.\n\nA junior asks at lunch: \"Is it true you wrote that urgent patch?\"",
                 choices: [
-                    { text: "Tell the truth — let the industry know", next: "ending_professional" },
-                    { text: "Leave quietly, no loud explanations", next: "ending_compromised" }
+                    { text: "Tell the truth — let the industry know", next: "ending_professional", codex: "ACM 1.3 · Be honest and trustworthy" },
+                    { text: "Leave quietly, no loud explanations", next: "ending_compromised", codex: "ACM 1.5 · Quiet exit, no remediation" }
                 ]
             },
 
@@ -140,106 +140,106 @@ const DILEMMAS = [
             start: {
                 text: "You're a product designer at a subscription service. A message arrives in the team chat from the product manager: \"Hey, we need to cut churn by 8%. We're making unsubscribe three screens with email confirmation. The CEO approved.\"\n\nYou know this is a classic dark pattern — an interface deliberately complicated so the user can't easily back out of the service. But the numbers really will move, and your quarterly bonus is tied to retention.",
                 choices: [
-                    { text: "Refuse: \"I won't design this\"", next: "refuse" },
-                    { text: "Agree, but softer: one screen and an email", next: "comply" }
+                    { text: "Refuse: \"I won't design this\"", next: "refuse", codex: "IxDA Code · Respect users + EU DSA Art. 25 — prohibits dark patterns" },
+                    { text: "Agree, but softer: one screen and an email", next: "comply", codex: "violates ISO 9241-210 · User-centered design" }
                 ]
             },
             refuse: {
                 text: "The PM replies, annoyed: \"Fine, I'll hand it to Denis from the next team.\"\n\nA week later the feature ships — three screens, worse than planned. At sprint review the PM says in front of everyone: \"Good thing this team has people who deliver, not just ideologues.\"",
                 choices: [
-                    { text: "Help Denis soften what's already shipped", next: "refuse_help" },
-                    { text: "Escalate to the Head of Design", next: "refuse_escalate" }
+                    { text: "Help Denis soften what's already shipped", next: "refuse_help", codex: "IxDA Code · Collaborate to reduce harm" },
+                    { text: "Escalate to the Head of Design", next: "refuse_escalate", codex: "ACM 2.4 · Use authorized channels for review" }
                 ]
             },
             comply: {
                 text: "The PM agrees to your compromise. Two weeks later — in production. Retention really does grow by 6%.\n\nA month later you overhear support: \"That's the twentieth ticket from an elderly woman who's been trying to unsubscribe for a month.\" The App Store rating drops from 4.5 to 4.1.",
                 choices: [
-                    { text: "Raise it at sprint review and propose a revert", next: "comply_revert" },
-                    { text: "Stay silent — the task is closed, metrics are up", next: "comply_silent" }
+                    { text: "Raise it at sprint review and propose a revert", next: "comply_revert", codex: "ACM 1.2 · Avoid harm (repair after the fact)" },
+                    { text: "Stay silent — the task is closed, metrics are up", next: "comply_silent", codex: "violates EU DSA Art. 25 + IxDA Code" }
                 ]
             },
             refuse_help: {
                 text: "Denis accepts the help. Together you rebuild the flow to a single screen. The PM grumbles but doesn't block — the rating has been falling anyway.\n\nDenis: \"Hey, can you share how you actually tell when something is a dark pattern? I'd have spotted it myself if I knew what to look for.\"",
                 choices: [
-                    { text: "Write a team-wide guide with examples", next: "refuse_help_guide" },
-                    { text: "Explain personally, but not systematically", next: "refuse_help_private" }
+                    { text: "Write a team-wide guide with examples", next: "refuse_help_guide", codex: "IxDA Code · Share knowledge to raise the floor" },
+                    { text: "Explain personally, but not systematically", next: "refuse_help_private", codex: "IxDA Code · Mentor (narrowly applied)" }
                 ]
             },
             refuse_help_guide: {
                 text: "You write an internal doc titled \"Anti-patterns we don't ship,\" with examples and rationale. The guide gets passed around chats across the industry. Six months later an accelerator reaches out: they need an ethical-design consultant for their portfolio companies.\n\nThe PM finds out and DMs you: \"Do you understand that you're making the company look bad?\"",
                 choices: [
-                    { text: "Take the consulting role and tie it publicly to the company", next: "ending_ethic" },
-                    { text: "Decline, to avoid antagonizing the PM", next: "ending_compromised" }
+                    { text: "Take the consulting role and tie it publicly to the company", next: "ending_ethic", codex: "ACM 3.1 · Public good as central concern" },
+                    { text: "Decline, to avoid antagonizing the PM", next: "ending_compromised", codex: "ACM 2.1 · Conflict avoidance over impact" }
                 ]
             },
             refuse_help_private: {
                 text: "You explain to Denis on a single call. Six months later he leaves for a Head of Design role at an edtech startup. He writes: \"Remember that unsubscribe story? I tell it at every first-round interview here. Can you write me a recommendation?\"\n\nAt your company, nobody but Denis ever found out.",
                 choices: [
-                    { text: "Write a strong, detailed recommendation", next: "ending_ethic" },
-                    { text: "Send a polite, generic one: \"Good designer, recommended\"", next: "ending_compromised" }
+                    { text: "Write a strong, detailed recommendation", next: "ending_ethic", codex: "ACM 1.5 · Honor credit for work done" },
+                    { text: "Send a polite, generic one: \"Good designer, recommended\"", next: "ending_compromised", codex: "violates ACM 1.3 · Honesty in evaluation" }
                 ]
             },
             refuse_escalate: {
                 text: "The Head of Design takes your side. At the next product review he publicly reverses the decision, citing \"brand and long-term loyalty metrics.\"\n\nA month later you're invited to lead a workshop on ethical design for the whole product org.",
                 choices: [
-                    { text: "Agree, and turn it into a recurring process", next: "refuse_escalate_yes" },
-                    { text: "Decline — don't want to be \"the ethics person\"", next: "refuse_escalate_no" }
+                    { text: "Agree, and turn it into a recurring process", next: "refuse_escalate_yes", codex: "ISO 9241-210 · Establish a user-centered process" },
+                    { text: "Decline — don't want to be \"the ethics person\"", next: "refuse_escalate_no", codex: "ACM 3.1 · Comfort over public good" }
                 ]
             },
             refuse_escalate_yes: {
                 text: "The workshop becomes a quarterly design review. Within a year, two patterns that used to be \"normal\" are retired.\n\nThe PM stays sore and writes on your annual review: \"Tends to put ideology above speed.\" The Head of Design offers: \"I can move you to report directly to me.\"",
                 choices: [
-                    { text: "Take the transfer — continue the work from a new role", next: "ending_ethic" },
-                    { text: "Stay under the PM, don't deepen the conflict", next: "ending_compromised" }
+                    { text: "Take the transfer — continue the work from a new role", next: "ending_ethic", codex: "ACM 2.1 · Sustain conditions for quality work" },
+                    { text: "Stay under the PM, don't deepen the conflict", next: "ending_compromised", codex: "ACM 2.1 · Conflict avoidance" }
                 ]
             },
             refuse_escalate_no: {
                 text: "Another designer runs the workshop and it lands flat. Six months later you see the PM write in the team chat: \"We need the same flow as the competitor — confirmation by phone call to support.\"\n\nThis will roll back everything you achieved.",
                 choices: [
-                    { text: "Speak up openly, even at the cost of the relationship", next: "ending_ethic" },
-                    { text: "Wait — let the Head of Design sort it out", next: "ending_compromised" }
+                    { text: "Speak up openly, even at the cost of the relationship", next: "ending_ethic", codex: "ACM 3.1 · Public good + 1.2 · Avoid harm" },
+                    { text: "Wait — let the Head of Design sort it out", next: "ending_compromised", codex: "ACM 2.5 · Defer to others' evaluation" }
                 ]
             },
             comply_revert: {
                 text: "At sprint review you show the reviews and support tickets. The PM defends the work, but the Head of Design backs the revert. A sprint later the unsubscribe is back to a single screen.\n\nSix months later you're invited to speak at a conference about the case.",
                 choices: [
-                    { text: "Accept and prepare an honest talk", next: "comply_revert_full" },
-                    { text: "Accept, but tell only the redemption arc", next: "comply_revert_partial" }
+                    { text: "Accept and prepare an honest talk", next: "comply_revert_full", codex: "ACM 1.3 · Be honest about own role" },
+                    { text: "Accept, but tell only the redemption arc", next: "comply_revert_partial", codex: "violates ACM 1.3 · Selective honesty" }
                 ]
             },
             comply_revert_full: {
                 text: "You walk on stage and open with: \"I agreed first. That's part of the story.\" The room goes quiet.\n\nIn the Q&A a young designer asks: \"What would you have told yourself that night when you agreed?\"",
                 choices: [
-                    { text: "Answer honestly — I wouldn't have had the right word then", next: "ending_ethic" },
-                    { text: "Answer vaguely — \"everyone walks their own path\"", next: "ending_compromised" }
+                    { text: "Answer honestly — I wouldn't have had the right word then", next: "ending_ethic", codex: "ACM 1.3 · Be honest and trustworthy" },
+                    { text: "Answer vaguely — \"everyone walks their own path\"", next: "ending_compromised", codex: "violates ACM 1.3 · Evasive honesty" }
                 ]
             },
             comply_revert_partial: {
                 text: "The talk is a hit. The case spreads across the industry: \"A designer who wasn't afraid to walk back a retention win.\" A month later you're offered a Design Lead role at a larger company.\n\nAt the interview the recruiter asks point-blank: \"Did you originally agree, or not?\"",
                 choices: [
-                    { text: "Set the record straight — tell it as it happened", next: "ending_ethic" },
-                    { text: "Confirm the public version", next: "ending_compromised" }
+                    { text: "Set the record straight — tell it as it happened", next: "ending_ethic", codex: "ACM 1.3 · Be honest and trustworthy" },
+                    { text: "Confirm the public version", next: "ending_compromised", codex: "violates ACM 1.3 · Misrepresentation" }
                 ]
             },
             comply_silent: {
                 text: "You focus on other work. Metrics keep climbing, no one brings it up.\n\nEighteen months later — an interview at a new company. They ask for a measurable case from your portfolio. The best example is that 6% retention lift.",
                 choices: [
-                    { text: "Tell it honestly, acknowledge the dark pattern", next: "comply_silent_honest" },
-                    { text: "Frame it as \"onboarding flow improvement\"", next: "comply_silent_spin" }
+                    { text: "Tell it honestly, acknowledge the dark pattern", next: "comply_silent_honest", codex: "ACM 1.3 · Be honest and trustworthy" },
+                    { text: "Frame it as \"onboarding flow improvement\"", next: "comply_silent_spin", codex: "violates ACM 1.3 · Misrepresentation in portfolio" }
                 ]
             },
             comply_silent_honest: {
                 text: "The interviewer pauses for a moment: \"Thanks for the honesty. But we can't make you an offer.\"\n\nA month later, another interview. Same question. Same story.",
                 choices: [
-                    { text: "Tell it honestly again", next: "ending_compromised" },
-                    { text: "This time, phrase it \"more safely\"", next: "ending_conformist" }
+                    { text: "Tell it honestly again", next: "ending_compromised", codex: "ACM 1.3 · Be honest (cost compounds)" },
+                    { text: "This time, phrase it \"more safely\"", next: "ending_conformist", codex: "violates ACM 1.3 · Drift toward spin" }
                 ]
             },
             comply_silent_spin: {
                 text: "You get the offer and take it. Six months in, the PM asks you to design a \"convenient\" way to remind users about subscriptions they've canceled.\n\nIt's the same dilemma — on a new subscription.",
                 choices: [
-                    { text: "Refuse — this time immediately and firmly", next: "ending_compromised" },
-                    { text: "Do it — you already have a refined approach", next: "ending_conformist" }
+                    { text: "Refuse — this time immediately and firmly", next: "ending_compromised", codex: "IxDA Code · Refuse harmful design" },
+                    { text: "Do it — you already have a refined approach", next: "ending_conformist", codex: "violates IxDA Code + EU DSA Art. 25" }
                 ]
             },
 
@@ -265,6 +265,106 @@ const DILEMMAS = [
             ending_conformist: {
                 title: "The Habit of Agreeing",
                 verdict: "One compromise opens the door to the next. A few years in, you stop distinguishing \"pragmatism\" from \"how everyone does it.\""
+            }
+        }
+    },
+
+    {
+        id: 'teacher-plagiarism',
+        kicker: 'Education · Integrity',
+        title: "The Teacher's Dilemma",
+        description: 'A strong student submitted work written by an AI. If you report it — they lose their scholarship and their Master\'s spot in Berlin.',
+        tags: ['AI', 'academic honesty', 'student future'],
+        estimatedMinutes: 5,
+        approxSteps: 5,
+        start: 'start',
+        story: {
+            start: {
+                text: "You're an associate professor of philosophy. It's Sunday evening, and you're grading the last batch of term papers. The next-to-last belongs to Maya — quiet, brilliant, the kind of student who writes you long emails about Kant on weekends.\n\nHer paper on moral luck is good. Suspiciously good. The transitions are seamless, the citations are pristine, and the prose has the eerie smoothness you've been seeing all semester. Maya's Humboldt acceptance for the fall sits open in another tab — you wrote the recommendation.",
+                choices: [
+                    { text: "Run the paper through the AI detector and stylometric tools", next: "verify_strong", codex: "ICAI · Responsibility — verify before accusing" },
+                    { text: "Set the laptop aside. Email Maya: \"Coffee tomorrow?\"", next: "confront_first", codex: "ICAI · Respect — talk to the person first" }
+                ]
+            },
+            verify_strong: {
+                text: "The detector reports 87% AI-generated. You re-run it three more times — the number won't move below 81. You pull up Maya's earlier essays from September: the voice is different. The new one doesn't have her hedges, doesn't have her tic of opening with a question.\n\nThe evidence is as clean as it gets without a confession.",
+                choices: [
+                    { text: "File the formal report with the integrity board tonight", next: "board_hearing", codex: "ICAI · Fairness — same process for everyone" },
+                    { text: "Email Maya. Ask her to come in tomorrow with the evidence in front of her", next: "evidence_talk", codex: "ICAI · Courage — direct conversation before formal action" }
+                ]
+            },
+            confront_first: {
+                text: "Maya sits across from you. You ask, gently: \"Walk me through how you wrote it.\" She talks for two minutes and contradicts herself twice on her own argument.\n\nYou say, even more gently: \"Maya.\" Her shoulders drop. She tells you she used ChatGPT \"just to structure it\" — that the ideas are hers. Then she's crying. Her parents work three jobs. Berlin is everything.",
+                choices: [
+                    { text: "Offer a rewrite under supervision — same topic, in my office, by Friday", next: "rewrite_chance", codex: "ICAI · Trust — a second chance when remorse is real" },
+                    { text: "\"I'm sorry. I have to report this.\"", next: "board_hearing", codex: "ICAI · Fairness — same standard for everyone" }
+                ]
+            },
+            evidence_talk: {
+                text: "You print the detector report and lay it on the desk. Maya stares at the percentage for ten seconds. Then it all comes out — the panic the night before the deadline, the prompt, the touch-ups.\n\n\"My parents took out a loan for this semester,\" she says. \"Berlin is the whole plan.\"",
+                choices: [
+                    { text: "Offer a supervised make-up assignment — but with a record on file", next: "rewrite_chance", codex: "ICAI · Respect + Responsibility — proportionate response" },
+                    { text: "\"I hear you. The report still goes in.\"", next: "board_hearing", codex: "ICAI · Honesty — sympathy doesn't change the facts" }
+                ]
+            },
+            board_hearing: {
+                text: "Tuesday morning, your department chair stops you in the hallway. \"About the Maya situation,\" she says, looking at her shoes. \"You know she's Dean Reinhart's niece, right? He's asked me to ask you... how confident you are in the evidence.\"\n\nThe hearing is at three.",
+                choices: [
+                    { text: "Walk into the hearing and lay out everything I have", next: "stand_by", codex: "ICAI · Courage — same testimony, regardless of who's listening" },
+                    { text: "Frame it as \"inconclusive — possibly partial AI assistance\"", next: "soften", codex: "violates AAUP III — duty to candor in formal proceedings" }
+                ]
+            },
+            stand_by: {
+                text: "The board votes 4–1. Maya gets a one-semester suspension. The scholarship is paused. Humboldt rescinds the offer pending the outcome of an internal review.\n\nTwo weeks later her mother emails you a single sentence: \"She wasn't a bad kid.\"",
+                choices: [
+                    { text: "Reply. Offer to mentor Maya through whatever comes next", next: "ending_integrity", codex: "AAUP II · Obligation to student development survives the sanction" },
+                    { text: "Don't reply. The boundary needs to hold", next: "ending_compromised", codex: "ICAI · Responsibility — narrowly applied" }
+                ]
+            },
+            soften: {
+                text: "Maya receives a written warning. The Dean sends you a personal thank-you note for your \"judicious handling.\"\n\nSix weeks later you overhear two sophomores in the cafeteria line: \"Just use the model. Professor Halden doesn't actually check anymore — Maya skated.\"",
+                choices: [
+                    { text: "Raise it at the next faculty meeting — propose a department-wide AI policy", next: "ending_compromised", codex: "ICAI · Courage — partial repair after compromise" },
+                    { text: "Pretend you didn't hear. You already chose this path", next: "ending_corruption", codex: "violates ICAI · Honesty — compounding the first compromise" }
+                ]
+            },
+            rewrite_chance: {
+                text: "Maya turns in the rewrite on Friday at 4 PM. You read it on the train home. It's worse than the AI version — and it's hers. The hedges are back. The opening question is there. The argument is shaky in two places and incandescent in one.\n\nYou sit on a platform bench for twenty minutes after your stop.",
+                choices: [
+                    { text: "Give it a B. File a private note in her advising record about the incident", next: "fair_credit", codex: "ICAI · Fairness — partial credit with a paper trail" },
+                    { text: "Give it an A. Forget the whole thing", next: "ending_corruption", codex: "violates ICAI · Fairness — a private exception, no record" }
+                ]
+            },
+            fair_credit: {
+                text: "Six months later. A student named Daniel from your spring class — quiet, average grades, no famous relatives — emails you. He's been flagged by another professor for AI use. He writes: \"I heard you gave Maya a chance to rewrite last semester. I'm asking for the same.\"\n\nYou don't remember telling anyone about Maya. Word got around anyway.",
+                choices: [
+                    { text: "Email Daniel back: yes, same terms — rewrite, under supervision, note on file", next: "ending_integrity", codex: "ICAI · Fairness — what's true for one is true for all" },
+                    { text: "Reply that \"circumstances were different\" and decline", next: "ending_compromised", codex: "violates ICAI · Fairness — privilege dressed as judgment" }
+                ]
+            },
+
+            ending_integrity: {
+                text: "By the end of the year you've drafted your department's first formal policy on generative AI in coursework — written with three students on the committee, one of whom is Maya. She's back, on probation, doing the work.\n\nYou don't know if she'll forgive you. You're not sure she should. But she trusted you enough to sit on the committee, and the policy you all wrote is the one being adopted by two other departments next semester."
+            },
+            ending_compromised: {
+                text: "You keep teaching. The standard you applied — you still believe it was right. The way you applied it, you replay sometimes on the long drives home.\n\nYears later a graduating senior tells you, in passing, that your Ethics 201 was the class that made him think the rules were real. You're glad. You don't tell him about Maya."
+            },
+            ending_corruption: {
+                text: "Three years pass. You're now the chair of the department. There's a \"gray-zone\" policy for AI use, and most years it works fine.\n\nA new junior professor walks into your office one Friday. He's caught a student — a star, with a fellowship riding on the term — and wants to know what to do. You hear yourself give him the careful, generous answer that protected Maya. He nods, relieved.\n\nYou wonder, later, how many times you've given that answer now. You've stopped counting."
+            }
+        },
+        endings: {
+            ending_integrity: {
+                title: "The Standard, Fairly Applied",
+                verdict: "Ethics isn't holding the line against the powerless. It's holding the same line when it costs you — and walking back with the person it cost."
+            },
+            ending_compromised: {
+                title: "The Right Thing, Imperfectly",
+                verdict: "The principle stood. The application bruised. Sometimes the only honest answer is that you did the harder thing and it still didn't feel clean."
+            },
+            ending_corruption: {
+                title: "The Quiet Exception, Generalized",
+                verdict: "An exception made once out of kindness becomes, in time, the rule that protects whoever you happen to like. The drift is slow. That's why it works."
             }
         }
     },
@@ -341,17 +441,6 @@ const DILEMMAS = [
         title: "The Pilot's Dilemma",
         description: "You're on hour 14 of duty with three hours of sleep. No replacement. 180 people on board. The captain says: \"We'll fly, it's fine.\"",
         tags: ['safety', 'protocol', 'pressure'],
-        estimatedMinutes: 4,
-        approxSteps: 4,
-        comingSoon: true
-    },
-
-    {
-        id: 'teacher-plagiarism',
-        kicker: 'Education · Integrity',
-        title: "The Teacher's Dilemma",
-        description: 'A strong student submitted work written by an AI. If you report it — they lose their scholarship and their Master\'s spot in Berlin.',
-        tags: ['AI', 'academic honesty', 'student future'],
         estimatedMinutes: 4,
         approxSteps: 4,
         comingSoon: true

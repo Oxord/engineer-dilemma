@@ -101,7 +101,8 @@ function renderScene(nodeId) {
 function makeChoice(choice) {
     state.path.push({
         nodeId: state.nodeId,
-        choiceText: choice.text
+        choiceText: choice.text,
+        codex: choice.codex
     });
 
     const nextNode = state.dilemma.story[choice.next];
@@ -137,7 +138,19 @@ function showEnding(endingId) {
     pathList.innerHTML = '';
     state.path.forEach((step) => {
         const li = document.createElement('li');
-        li.textContent = step.choiceText;
+        const textSpan = document.createElement('span');
+        textSpan.className = 'path-choice';
+        textSpan.textContent = step.choiceText;
+        li.appendChild(textSpan);
+        if (step.codex) {
+            const codexSpan = document.createElement('span');
+            codexSpan.className = 'codex-ref';
+            if (step.codex.toLowerCase().startsWith('violates')) {
+                codexSpan.classList.add('codex-violation');
+            }
+            codexSpan.textContent = step.codex;
+            li.appendChild(codexSpan);
+        }
         pathList.appendChild(li);
     });
 

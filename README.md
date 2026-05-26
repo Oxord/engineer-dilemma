@@ -47,8 +47,8 @@ Append an object to the `DILEMMAS` array in `dilemmas.js`:
         start: {
             text: "Opening scene...",
             choices: [
-                { text: "Choice A", next: "nodeA" },
-                { text: "Choice B", next: "nodeB" }
+                { text: "Choice A", next: "nodeA", codex: "ACM 1.2 · Avoid harm" },
+                { text: "Choice B", next: "nodeB", codex: "violates ACM 1.3 · Be honest" }
             ]
         },
         // ...intermediate nodes with choices
@@ -61,6 +61,8 @@ Append an object to the `DILEMMAS` array in `dilemmas.js`:
 ```
 
 Mark in-progress entries with `comingSoon: true` to keep them as placeholders without rendering in the menu.
+
+Each choice may carry a `codex` field — a short reference to a professional code or principle (e.g. `"ACM 1.2 · Avoid harm"`, `"ICAI · Fairness — same standard for everyone"`). Prefix with `"violates "` when the choice breaks the principle. The reference is shown under the corresponding step in the "Your path" summary on the ending screen. Suggested sources: ACM Code of Ethics, IxDA Code of Ethics, ISO 9241-210, ICAI Fundamental Values, AAUP Statement on Professional Ethics, EU DSA.
 
 ## Story tree shape
 

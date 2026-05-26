@@ -431,12 +431,29 @@ kbd {
 
 .path-summary li {
     counter-increment: step;
-    padding: 10px 0 10px 36px;
+    padding: 10px 0 14px 36px;
     color: var(--text-dim);
     font-size: 0.95rem;
     position: relative;
     border-left: 1px solid var(--border);
     margin-left: 12px;
+}
+
+.path-summary .path-choice {
+    display: block;
+}
+
+.path-summary .codex-ref {
+    display: block;
+    margin-top: 4px;
+    font-size: 0.78rem;
+    color: var(--accent-dim);
+    letter-spacing: 0.02em;
+    font-style: italic;
+}
+
+.path-summary .codex-ref.codex-violation {
+    color: #d99a8a;
 }
 
 .path-summary li::before {
